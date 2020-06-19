@@ -1,0 +1,42 @@
+{
+  "name": "@hyperjump/oas-schema-validator",
+  "version": "0.1.1",
+  "description": "An OAS Schema Validator",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "xargs -a .gitignore rm -rf",
+    "lint": "eslint lib",
+    "test": "mocha 'lib/**/*.spec.js'",
+    "build": "rollup --config rollup.config.js",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": "github:hyperjump-io/oas-schema-validator",
+  "keywords": [
+    "Open API",
+    "3.1",
+    "vocabulary",
+    "JSON Schema",
+    "Hyperjump"
+  ],
+  "author": "Jason Desrosiers <jdesrosi@gmail.com>",
+  "license": "MIT",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/jdesrosiers"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "chai": "^4.2.0",
+    "eslint": "^4.19.1",
+    "eslint-import-resolver-node": "^0.3.2",
+    "eslint-plugin-import": "^2.21.2",
+    "json-schema-test-suite": "github:json-schema-org/JSON-Schema-Test-Suite",
+    "mocha": "^5.2.0",
+    "rollup": "^2.16.0",
+    "rollup-plugin-terser": "^5.3.0"
+  },
+  "dependencies": {
+    "@hyperjump/json-schema": "^0.10.0"
+  }
+}
