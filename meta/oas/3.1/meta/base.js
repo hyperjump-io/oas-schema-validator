@@ -1,46 +1,45 @@
 module.exports = `{
-    "$id": "https://spec.openapis.org/oas/3.1/meta/extensions",
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://spec.openapis.org/oas/3.1/meta/base",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$vocabulary": {
-        "https://spec.openapis.org/oas/3.1/vocab/extensions": true
+        "https://spec.openapis.org/oas/3.1/vocab/base": true
     },
-    "$recursiveAnchor": true,
+    "$dynamicAnchor": "meta",
+    "title": "OAS Base vocabulary",
 
     "type": ["object", "boolean"],
     "properties": {
         "example": true,
-        "discriminator": {
-            "$ref": "#/$defs/Discriminator"
-        },
-        "externalDocs": {
-            "$ref": "#/$defs/ExternalDocs"
-        },
-        "xml": {
-            "$ref": "#/$defs/Xml"
-        }
-    },
-    "patternProperties": {
-        "^x-": true
+        "discriminator": { "$ref": "#/$defs/Discriminator" },
+        "externalDocs": { "$ref": "#/$defs/ExternalDocs" },
+        "xml": { "$ref": "#/$defs/Xml" }
     },
     "$defs": {
+        "Extensible": {
+            "patternProperties": {
+                "^x-": true
+            }
+        },
         "Discriminator": {
+            "$ref": "#/$defs/Extensible",
             "type": "object",
-            "required": ["propertyName"],
             "properties": {
                 "propertyName": {
                     "type": "string"
                 },
                 "mapping": {
+                    "type": "object",
                     "additionalProperties": {
                         "type": "string"
                     }
                 }
             },
-            "additionalProperties": false
+            "required": ["propertyName"],
+            "unevaluatedProperties": false
         },
         "ExternalDocs": {
+            "$ref": "#/$defs/Extensible",
             "type": "object",
-            "required": ["url"],
             "properties": {
                 "url": {
                     "type": "string",
@@ -50,12 +49,11 @@ module.exports = `{
                     "type": "string"
                 }
             },
-            "patternProperties": {
-                "^x-": true
-            },
-            "additionalProperties": false
+            "required": ["url"],
+            "unevaluatedProperties": false
         },
         "Xml": {
+            "$ref": "#/$defs/Extensible",
             "type": "object",
             "properties": {
                 "name": {
@@ -75,10 +73,7 @@ module.exports = `{
                     "type": "boolean"
                 }
             },
-            "patternProperties": {
-                "^x-": true
-            },
-            "additionalProperties": false
+            "unevaluatedProperties": false
         }
     }
 }`;
