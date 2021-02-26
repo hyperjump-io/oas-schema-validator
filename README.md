@@ -4,7 +4,6 @@ OAS Schema Validator is built on [JSON Schema Core](https://github.com/hyperjump
 * Supported OAS Schema Versions
   * 3.1
 * Schemas can reference other schemas using a different draft
-* Create your own vocabulary with [JSC](https://github.com/hyperjump-io/json-schema-core)
 * Load schemas from filesystem (file://), network (http(s)://), or JavaScript
 
 ## Install
@@ -45,7 +44,7 @@ const OasSchema = require("@hyperjump/oas-schema-validator");
 
 // Example: Inline schema
 const schemaJson = {
-  "$schema": "https://spec.openapis.org/oas/3.1/meta/schema-object",
+  "$schema": "https://spec.openapis.org/oas/3.1/dialect/base",
   "$id": "http://example.com/schemas/string",
   "type": "string"
 }
@@ -107,7 +106,7 @@ OasSchema.setShouldMetaValidate(false);
     more information on output formats.
 
 ## Not (yet) Supported
-This implementation supports all required features of JSON Schema draft 2019-09.
+This implementation supports all required features of JSON Schema draft 2020-12.
 The following optional features are not supported yet.
 
 * The format vocabulary
