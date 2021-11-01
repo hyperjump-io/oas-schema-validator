@@ -7,9 +7,8 @@ OAS Schema Validator is built on [JSON Schema Core](https://github.com/hyperjump
 * Load schemas from filesystem (file://), network (http(s)://), or JavaScript
 
 ## Install
-The package is designed to run in a vanilla node.js environment, but has no
-dependencies on node.js specific libraries so it can be bundled for the browser.
-No compilers, preprocessors, or bundlers are used.
+JSV includes support for node.js JavaScript (CommonJS and ES Modules),
+TypeScript, and browsers.
 
 ### Node.js
 ```bash
@@ -79,8 +78,40 @@ OasSchema.setMetaOutputFormat(OasSchema.FLAG);
 OasSchema.setShouldMetaValidate(false);
 ```
 
+## TypeScript
+Although the package is written in JavaScript, type definitions are included for
+TypeScript support. The following example shows the types you might want to
+know.
+
+```typescript
+import OasSchema, { InvalidSchemaError } from "@hyperjump/oas-schema-validator";
+import type { SchemaDocument, Validator, Result, Oas31Schema } from "@hyperjump/json-schema";
+
+
+const schemaJson: Oas31Schema = {
+  "$id": "https://json-schema.hyperjump.io/schema",
+  "$schema": "https://spec.openapis.org/oas/3.1/dialect/base",
+
+  "type": "string"
+};
+OasSchema.add(schemaJson);
+
+const schema: SchemaDocument = await OasSchema.get("https://json-schema.hyperjump.io/schema");
+try {
+  const isString: Validator = await OasSchema.validate(schema);
+  const result: Result = isString("foo");
+  console.log("isString:", result.valid);
+} catch (error: unknown) {
+  if (error instanceof InvalidSchemaError) {
+    console.log(error.output);
+  } else {
+    console.log(error);
+  }
+}
+```
+
 ## API
-* **add**: (schema: object, url?: URI, schemaVersion?: string) => undefined
+* **add**: (schema: object, url?: URI, schemaVersion?: string) => SDoc
 
     Load a schema. See [JSC - $id](https://github.com/hyperjump-io/json-schema-core#id)
     and [JSC - $schema](https://github.com/hyperjump-io/json-schema-core#schema-1)
@@ -89,10 +120,17 @@ OasSchema.setShouldMetaValidate(false);
 
     Fetch a schema. Schemas can come from an HTTP request, a file, or a schema
     that was added with `add`.
-* **validate**: (schema: SDoc, instance: any, outputFormat: OutputFormat = FLAG) => OutputUnit
+* **validate**: (schema: SDoc, instance: any, outputFormat: OutputFormat = FLAG) => Promise<OutputUnit>
 
     Validate an instance against a schema. The function is curried to allow
     compiling the schema once and applying it to multiple instances.
+* **compile**: (schema: SDoc) => Promise<CompiledSchema>
+
+    Compile a schema to be interpreted later. A compiled schema is a JSON
+    serializable structure that can be serialized an restored for later use.
+* **interpret**: (schema: CompiledSchema, instance: any, outputFormat: OutputFormat = FLAG) => OutputUnit
+
+    A curried function for validating an instance against a compiled schema.
 * **setMetaOutputFormat**: (outputFormat: OutputFormat = DETAILED) => undefined
 
     Set the output format for meta-validation. Meta-validation output is only
@@ -102,14 +140,14 @@ OasSchema.setShouldMetaValidate(false);
     Enable or disable meta-validation.
 * **OutputFormat**: [**FLAG** | **BASIC** | **DETAILED** | **VERBOSE**]
 
-    [JSC - Output](https://github.com/hyperjump-io/json-schema-core#output) for
-    more information on output formats.
+    See [JSC - Output](https://github.com/hyperjump-io/json-schema-core#output)
+    for more information on output formats.
 
 ## Not (yet) Supported
-This implementation supports all required features of JSON Schema draft 2020-12.
-The following optional features are not supported yet.
+This implementation supports all required features of OAS 3.1 Schema Object. The
+following optional features are not supported yet.
 
-* The format vocabulary
+* The format-assertion vocabulary
 
 ## Contributing
 

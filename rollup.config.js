@@ -1,4 +1,4 @@
-const resolve = require("@rollup/plugin-node-resolve");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const commonjs = require("@rollup/plugin-commonjs");
 const { terser } = require("rollup-plugin-terser");
 
@@ -17,10 +17,11 @@ module.exports = config.map(([format, minify]) => ({
     format: format,
     file: `dist/oas-schema-${format}${minify ? ".min" : ""}.js`,
     name: "OasSchema",
-    sourcemap: true
+    sourcemap: true,
+    exports: "named"
   },
   plugins: [
-    resolve({
+    nodeResolve({
       browser: true
     }),
     commonjs(),
