@@ -54,7 +54,7 @@ const schema = await OasSchema.get("http://example.com/schemas/string");
 const schema = await OasSchema.get("http://example.com/schemas/string");
 
 // Example: Fetch from file
-const schema = await OasSchema.get("file:///path/to/my/schemas/string.schema.json");
+const schema = await OasSchema.get(`file://${__dirname}/schemas/string.schema.json`);
 
 // Example: Validate instance
 const output = await OasSchema.validate(schema, "foo");
@@ -67,6 +67,20 @@ if (output.valid) {
 // Example: Precompile validator
 const isString = await OasSchema.validate(schema);
 const output = isString("foo");
+
+// Example: Validate OpenAPI document with no schema validation
+const openApiSchema = await OasSchema.get("https://spec.openapis.org/oas/3.1/schema");
+const validateOpenApi = await OasSchema.validate(openApiSchema);
+
+const result = validateOpenApi(openApiDoc);
+console.log("Is Valid:", result.valid);
+
+// Example: Validate OpenAPI document with default dialect
+const openApiSchema = await OasSchema.get("https://spec.openapis.org/oas/3.1/schema-base");
+const validateOpenApi = await OasSchema.validate(openApiSchema);
+
+const result = validateOpenApi(openApiDoc);
+console.log("Is Valid:", result.valid);
 
 // Example: Specify output format
 const output = await OasSchema.validate(schema, "foo", OasSchema.VERBOSE);
