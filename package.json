@@ -1,6 +1,6 @@
 {
   "name": "@hyperjump/oas-schema-validator",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "An OAS Schema Validator",
   "main": "lib/index.js",
   "exports": {
