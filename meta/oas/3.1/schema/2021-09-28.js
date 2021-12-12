@@ -5,7 +5,7 @@ module.exports = `{
   "properties": {
     "openapi": {
       "type": "string",
-      "pattern": "^3\\.1\\.\\d+(-.+)?$"
+      "pattern": "^3\\\\.1\\\\.\\\\d+(-.+)?$"
     },
     "info": {
       "$ref": "#/$defs/info"

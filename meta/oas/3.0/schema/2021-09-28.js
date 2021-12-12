@@ -11,7 +11,7 @@ module.exports = `{
   "properties": {
     "openapi": {
       "type": "string",
-      "pattern": "^3\\.0\\.\\d(-.+)?$"
+      "pattern": "^3\\\\.0\\\\.\\\\d(-.+)?$"
     },
     "info": {
       "$ref": "#/definitions/Info"
@@ -57,7 +57,7 @@ module.exports = `{
         "$ref"
       ],
       "patternProperties": {
-        "^\\$ref$": {
+        "^\\\\$ref$": {
           "type": "string",
           "format": "uri-reference"
         }
@@ -193,7 +193,7 @@ module.exports = `{
         "schemas": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Schema"
@@ -208,7 +208,7 @@ module.exports = `{
         "responses": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -223,7 +223,7 @@ module.exports = `{
         "parameters": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -238,7 +238,7 @@ module.exports = `{
         "examples": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -253,7 +253,7 @@ module.exports = `{
         "requestBodies": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -268,7 +268,7 @@ module.exports = `{
         "headers": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -283,7 +283,7 @@ module.exports = `{
         "securitySchemes": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -298,7 +298,7 @@ module.exports = `{
         "links": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -313,7 +313,7 @@ module.exports = `{
         "callbacks": {
           "type": "object",
           "patternProperties": {
-            "^[a-zA-Z0-9\\.\\-_]+$": {
+            "^[a-zA-Z0-9\\\\.\\\\-_]+$": {
               "oneOf": [
                 {
                   "$ref": "#/definitions/Reference"
@@ -790,7 +790,7 @@ module.exports = `{
     "Paths": {
       "type": "object",
       "patternProperties": {
-        "^\\/": {
+        "^\\\\/": {
           "$ref": "#/definitions/PathItem"
         },
         "^x-": {
@@ -942,7 +942,7 @@ module.exports = `{
         }
       },
       "patternProperties": {
-        "^[1-5](?:\\d{2}|XX)$": {
+        "^[1-5](?:\\\\d{2}|XX)$": {
           "oneOf": [
             {
               "$ref": "#/definitions/Response"
