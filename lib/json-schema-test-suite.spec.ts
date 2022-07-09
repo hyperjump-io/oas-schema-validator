@@ -44,14 +44,14 @@ const shouldSkip = (path: string[]): boolean => {
 
 const testSuitePath = "./node_modules/json-schema-test-suite";
 
-const addRemotes = (schemaVersion: Dialect, filePath = `${testSuitePath}/remotes`, url = "") => {
+const addRemotes = (dialectId: Dialect, filePath = `${testSuitePath}/remotes`, url = "") => {
   fs.readdirSync(filePath, { withFileTypes: true })
     .forEach((entry) => {
       if (entry.isFile()) {
         const remote = JSON.parse(fs.readFileSync(`${filePath}/${entry.name}`, "utf8")) as SchemaObject;
-        OasSchema.add(remote, `http://localhost:1234${url}/${entry.name}`, schemaVersion);
+        OasSchema.add(remote, `http://localhost:1234${url}/${entry.name}`, dialectId);
       } else if (entry.isDirectory()) {
-        addRemotes(schemaVersion, `${filePath}/${entry.name}`, `${url}/${entry.name}`);
+        addRemotes(dialectId, `${filePath}/${entry.name}`, `${url}/${entry.name}`);
       }
     });
 };
@@ -59,12 +59,12 @@ const addRemotes = (schemaVersion: Dialect, filePath = `${testSuitePath}/remotes
 OasSchema.setMetaOutputFormat(OasSchema.FLAG);
 //OasSchema.setShouldMetaValidate(false);
 
-const runTestSuite = (draft: string, schemaVersion: Dialect) => {
+const runTestSuite = (draft: string, dialectId: Dialect) => {
   const testSuiteFilePath = `${testSuitePath}/tests/${draft}`;
 
-  describe(`${draft} ${schemaVersion}`, () => {
+  describe(`${draft} ${dialectId}`, () => {
     before(() => {
-      addRemotes(schemaVersion);
+      addRemotes(dialectId);
     });
 
     fs.readdirSync(testSuiteFilePath, { withFileTypes: true })
@@ -85,7 +85,7 @@ const runTestSuite = (draft: string, schemaVersion: Dialect) => {
                 }
                 const path = "/" + suite.description.replace(/\s+/g, "-");
                 const url = `http://${draft}-test-suite.json-schema.org${path}`;
-                OasSchema.add(suite.schema, url, schemaVersion);
+                OasSchema.add(suite.schema, url, dialectId);
 
                 const schema = await OasSchema.get(url);
                 validate = await OasSchema.validate(schema);
