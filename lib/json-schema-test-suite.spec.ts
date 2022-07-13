@@ -49,7 +49,11 @@ const addRemotes = (dialectId: Dialect, filePath = `${testSuitePath}/remotes`, u
     .forEach((entry) => {
       if (entry.isFile()) {
         const remote = JSON.parse(fs.readFileSync(`${filePath}/${entry.name}`, "utf8")) as SchemaObject;
-        OasSchema.add(remote, `http://localhost:1234${url}/${entry.name}`, dialectId);
+        try {
+          OasSchema.add(remote, `http://localhost:1234${url}/${entry.name}`, dialectId);
+        } catch (error: unknown) {
+          console.log(`WARNING: Failed to load remote 'http://localhost:1234${url}/${entry.name}'`);
+        }
       } else if (entry.isDirectory()) {
         addRemotes(dialectId, `${filePath}/${entry.name}`, `${url}/${entry.name}`);
       }
