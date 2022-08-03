@@ -48,6 +48,6 @@
     "typescript": "*"
   },
   "dependencies": {
-    "@hyperjump/json-schema": "^0.22.0"
+    "@hyperjump/json-schema": "^0.23.0"
   }
 }
