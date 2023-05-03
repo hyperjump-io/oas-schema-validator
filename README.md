@@ -1,3 +1,5 @@
+# THIS FUNCTIONALITY HAS BEEN MOVED TO [@hyperjump/json-schema](https://github.com/hyperjump-io/json-schema)
+
 # Hyperjump - OAS Schema Validator
 OAS Schema Validator is built on [JSON Schema Core](https://github.com/hyperjump-io/json-schema-core).
 
